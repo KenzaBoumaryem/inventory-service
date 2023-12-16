@@ -32,7 +32,10 @@ jobs:
     - name: Run test
       run: mvn test         
     - name: Build And Push Docker Image
-      run: |
-        docker build -t oussabitarek/inventory_service .
-        echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
-        docker push oussabitarek/inventory_service
+      uses: mr-smithers-excellent/docker-build-push@v6
+      with:
+        image: kenzeboumaryem/inventoryservice
+        registry: docker.io
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+
